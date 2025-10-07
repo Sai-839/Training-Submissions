@@ -85,12 +85,9 @@ CREATE TABLE IF NOT EXISTS fact_order_items (
 
 
 -- Distinct dates staging (optional temp table)
-WITH all_dates AS (
-  SELECT DISTINCT order_date AS d FROM superstore
-  UNION
-  SELECT DISTINCT ship_date  AS d FROM superstore
+INSERT INTO dim_date (
+  date_sk, date_actual, day_of_month, month_num, month_name, quarter_num, year_num, is_weekend
 )
-INSERT INTO dim_date (date_sk, date_actual, day_of_month, month_num, month_name, quarter_num, year_num, is_weekend)
 SELECT
   CAST(DATE_FORMAT(d, '%Y%m%d') AS UNSIGNED) AS date_sk,
   d AS date_actual,
@@ -100,14 +97,21 @@ SELECT
   QUARTER(d)    AS quarter_num,
   YEAR(d)       AS year_num,
   CASE WHEN DAYOFWEEK(d) IN (1,7) THEN 1 ELSE 0 END AS is_weekend
-FROM all_dates
+FROM (
+  SELECT DISTINCT order_date AS d FROM superstore
+  UNION
+  SELECT DISTINCT ship_date  AS d FROM superstore
+) all_dates
 LEFT JOIN dim_date dd ON dd.date_actual = all_dates.d
-WHERE dd.date_actual IS NULL;   -- avoid duplicates on rerun
+WHERE all_dates.d IS NOT NULL
+  AND dd.date_actual IS NULL;
 
 
 INSERT INTO dim_customer (customer_id, customer_name, segment)
 SELECT DISTINCT
-  customer_id, customer_name, segment
+  s.customer_id,        -- from superstore
+  s.customer_name,
+  s.segment
 FROM superstore s
 LEFT JOIN dim_customer dc ON dc.customer_id = s.customer_id
 WHERE dc.customer_id IS NULL
@@ -116,29 +120,37 @@ WHERE dc.customer_id IS NULL
 
 INSERT INTO dim_product (product_id, product_name, category, sub_category)
 SELECT DISTINCT
-  product_id, product_name, category, sub_category
+  s.product_id, 
+  s.product_name, 
+  s.category, 
+  s.sub_category
 FROM superstore s
-LEFT JOIN dim_product dp ON dp.product_id = s.product_id
-WHERE dp.product_id IS NULL
-  AND s.product_id IS NOT NULL;
+WHERE s.product_id IS NOT NULL
+ON DUPLICATE KEY UPDATE
+  product_name = VALUES(product_name),
+  category     = VALUES(category),
+  sub_category = VALUES(sub_category);
 
 
 INSERT INTO dim_geography (postal_code, city, _state, region, country)
 SELECT DISTINCT
-  CAST(postal_code AS CHAR),  -- protect leading zeros
-  city, _state, region, country
+  CAST(s.postal_code AS CHAR) COLLATE utf8mb4_0900_ai_ci,
+  s.city,
+  s._state,
+  s.region,
+  s.country
 FROM superstore s
 LEFT JOIN dim_geography dg
-  ON dg.postal_code = CAST(s.postal_code AS CHAR)
- AND dg.city        = s.city
- AND dg._state      = s._state
- AND dg.region      = s.region
- AND dg.country     = s.country
+  ON dg.postal_code = CAST(s.postal_code AS CHAR) COLLATE utf8mb4_0900_ai_ci
+ AND dg.city        = s.city  COLLATE utf8mb4_0900_ai_ci
+ AND dg._state      = s._state COLLATE utf8mb4_0900_ai_ci
+ AND dg.region      = s.region COLLATE utf8mb4_0900_ai_ci
+ AND dg.country     = s.country COLLATE utf8mb4_0900_ai_ci
 WHERE dg.geo_sk IS NULL;
 
 
 INSERT INTO dim_shipping (ship_mode)
-SELECT DISTINCT ship_mode
+SELECT DISTINCT s.ship_mode
 FROM superstore s
 LEFT JOIN dim_shipping ds ON ds.ship_mode = s.ship_mode
 WHERE ds.ship_mode IS NULL
@@ -167,15 +179,19 @@ SELECT
   s.discount,
   s.profit
 FROM superstore s
-JOIN dim_customer  dc ON dc.customer_id = s.customer_id
-JOIN dim_product   dp ON dp.product_id  = s.product_id
+JOIN dim_customer  dc 
+  ON dc.customer_id = s.customer_id COLLATE utf8mb4_0900_ai_ci
+JOIN dim_product   dp 
+  ON dp.product_id  = s.product_id  COLLATE utf8mb4_0900_ai_ci
 LEFT JOIN dim_geography dg
-       ON dg.postal_code = CAST(s.postal_code AS CHAR)
-      AND dg.city        = s.city
-      AND dg._state      = s._state
-      AND dg.region      = s.region
-      AND dg.country     = s.country
-LEFT JOIN dim_shipping ds ON ds.ship_mode = s.ship_mode;
+  ON dg.postal_code = CAST(s.postal_code AS CHAR) COLLATE utf8mb4_0900_ai_ci
+ AND dg.city        = s.city    COLLATE utf8mb4_0900_ai_ci
+ AND dg._state      = s._state  COLLATE utf8mb4_0900_ai_ci
+ AND dg.region      = s.region  COLLATE utf8mb4_0900_ai_ci
+ AND dg.country     = s.country COLLATE utf8mb4_0900_ai_ci
+LEFT JOIN dim_shipping ds 
+  ON ds.ship_mode   = s.ship_mode COLLATE utf8mb4_0900_ai_ci;
+
 
 
 -- row counts
