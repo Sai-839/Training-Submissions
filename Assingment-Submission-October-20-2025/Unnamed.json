@@ -1,0 +1,170 @@
+[
+    {
+        "Field": "row_id",
+        "Type": "int",
+        "Null": "NO",
+        "Key": "PRI",
+        "Default": "?no data?",
+        "Extra": "?no data?"
+    },
+    {
+        "Field": "order_id",
+        "Type": "varchar(20)",
+        "Null": "YES",
+        "Key": "?no data?",
+        "Default": "?no data?",
+        "Extra": "?no data?"
+    },
+    {
+        "Field": "order_date",
+        "Type": "date",
+        "Null": "YES",
+        "Key": "?no data?",
+        "Default": "?no data?",
+        "Extra": "?no data?"
+    },
+    {
+        "Field": "ship_date",
+        "Type": "date",
+        "Null": "YES",
+        "Key": "?no data?",
+        "Default": "?no data?",
+        "Extra": "?no data?"
+    },
+    {
+        "Field": "ship_mode",
+        "Type": "varchar(20)",
+        "Null": "YES",
+        "Key": "?no data?",
+        "Default": "?no data?",
+        "Extra": "?no data?"
+    },
+    {
+        "Field": "customer_id",
+        "Type": "varchar(20)",
+        "Null": "YES",
+        "Key": "?no data?",
+        "Default": "?no data?",
+        "Extra": "?no data?"
+    },
+    {
+        "Field": "customer_name",
+        "Type": "varchar(45)",
+        "Null": "YES",
+        "Key": "?no data?",
+        "Default": "?no data?",
+        "Extra": "?no data?"
+    },
+    {
+        "Field": "segment",
+        "Type": "varchar(20)",
+        "Null": "YES",
+        "Key": "?no data?",
+        "Default": "?no data?",
+        "Extra": "?no data?"
+    },
+    {
+        "Field": "country",
+        "Type": "varchar(15)",
+        "Null": "YES",
+        "Key": "?no data?",
+        "Default": "?no data?",
+        "Extra": "?no data?"
+    },
+    {
+        "Field": "city",
+        "Type": "varchar(35)",
+        "Null": "YES",
+        "Key": "?no data?",
+        "Default": "?no data?",
+        "Extra": "?no data?"
+    },
+    {
+        "Field": "_state",
+        "Type": "varchar(20)",
+        "Null": "YES",
+        "Key": "?no data?",
+        "Default": "?no data?",
+        "Extra": "?no data?"
+    },
+    {
+        "Field": "postal_code",
+        "Type": "int",
+        "Null": "YES",
+        "Key": "?no data?",
+        "Default": "?no data?",
+        "Extra": "?no data?"
+    },
+    {
+        "Field": "region",
+        "Type": "varchar(10)",
+        "Null": "YES",
+        "Key": "?no data?",
+        "Default": "?no data?",
+        "Extra": "?no data?"
+    },
+    {
+        "Field": "product_id",
+        "Type": "varchar(20)",
+        "Null": "YES",
+        "Key": "?no data?",
+        "Default": "?no data?",
+        "Extra": "?no data?"
+    },
+    {
+        "Field": "category",
+        "Type": "varchar(35)",
+        "Null": "YES",
+        "Key": "?no data?",
+        "Default": "?no data?",
+        "Extra": "?no data?"
+    },
+    {
+        "Field": "sub_category",
+        "Type": "varchar(35)",
+        "Null": "YES",
+        "Key": "?no data?",
+        "Default": "?no data?",
+        "Extra": "?no data?"
+    },
+    {
+        "Field": "product_name",
+        "Type": "varchar(150)",
+        "Null": "YES",
+        "Key": "?no data?",
+        "Default": "?no data?",
+        "Extra": "?no data?"
+    },
+    {
+        "Field": "sales",
+        "Type": "decimal(19,4)",
+        "Null": "YES",
+        "Key": "?no data?",
+        "Default": "?no data?",
+        "Extra": "?no data?"
+    },
+    {
+        "Field": "quantity",
+        "Type": "int",
+        "Null": "YES",
+        "Key": "?no data?",
+        "Default": "?no data?",
+        "Extra": "?no data?"
+    },
+    {
+        "Field": "discount",
+        "Type": "decimal(5,2)",
+        "Null": "YES",
+        "Key": "?no data?",
+        "Default": "?no data?",
+        "Extra": "?no data?"
+    },
+    {
+        "Field": "profit",
+        "Type": "decimal(19,4)",
+        "Null": "YES",
+        "Key": "?no data?",
+        "Default": "?no data?",
+        "Extra": "?no data?"
+    }
+]

@@ -1,0 +1,26 @@
+2025-10-29 00:30:05 INFO     [run=2c5ce90b] logwriter:157 - Script START (run_id=2c5ce90b) pid=18452 python=3.13.7
+2025-10-29 00:30:05 INFO     [run=2c5ce90b] logwriter:86 - START: pipeline
+2025-10-29 00:30:05 INFO     [run=2c5ce90b] logwriter:86 - START: step:load
+2025-10-29 00:30:05 INFO     [run=2c5ce90b] logwriter:92 - END:   step:load (elapsed=20.72 ms)
+2025-10-29 00:30:05 INFO     [run=2c5ce90b] logwriter:117 - START: fake_step_compute
+2025-10-29 00:30:05 INFO     [run=2c5ce90b] logwriter:127 - END:   fake_step_compute (elapsed=102.36 ms)
+2025-10-29 00:30:05 INFO     [run=2c5ce90b] logwriter:166 - fake_compute result=41665416675000
+2025-10-29 00:30:05 INFO     [run=2c5ce90b] logwriter:117 - START: fake_io
+2025-10-29 00:30:05 INFO     [run=2c5ce90b] logwriter:127 - END:   fake_io (elapsed=50.79 ms)
+2025-10-29 00:30:05 INFO     [run=2c5ce90b] logwriter:92 - END:   pipeline (elapsed=176.02 ms)
+2025-10-29 00:30:05 INFO     [run=2c5ce90b] logwriter:175 - Script END
+2025-10-29 00:30:35 INFO     [run=30bd92ff] logwriter:157 - Script START (run_id=30bd92ff) pid=22584 python=3.13.7
+2025-10-29 00:30:35 INFO     [run=30bd92ff] logwriter:86 - START: pipeline
+2025-10-29 00:30:35 INFO     [run=30bd92ff] logwriter:86 - START: step:load
+2025-10-29 00:30:35 INFO     [run=30bd92ff] logwriter:92 - END:   step:load (elapsed=20.62 ms)
+2025-10-29 00:30:35 INFO     [run=30bd92ff] logwriter:117 - START: fake_step_compute
+2025-10-29 00:30:36 INFO     [run=30bd92ff] logwriter:127 - END:   fake_step_compute (elapsed=103.65 ms)
+2025-10-29 00:30:36 INFO     [run=30bd92ff] logwriter:166 - fake_compute result=41665416675000
+2025-10-29 00:30:36 INFO     [run=30bd92ff] logwriter:117 - START: fake_io
+2025-10-29 00:30:36 INFO     [run=30bd92ff] logwriter:127 - END:   fake_io (elapsed=51.02 ms)
+2025-10-29 00:30:36 ERROR    [run=30bd92ff] logwriter:96 - ERROR during 'pipeline' (elapsed=177.44 ms): Boom! Something went wrong
+Traceback (most recent call last):
+  File "C:\Users\saisu\Desktop\KeyPixel\Training-Submissions\Assingment-Submission-October-20-2025\log_writer.py", line 172, in main
+    raise RuntimeError("Boom! Something went wrong")
+RuntimeError: Boom! Something went wrong
+2025-10-29 00:30:36 INFO     [run=30bd92ff] logwriter:175 - Script END
